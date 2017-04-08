@@ -1,20 +1,33 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import "../../node_modules/bootstrap/dist/css/bootstrap.css";
 
-import { AppComponent } from './app.component';
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from "@angular/http";
+
+import { AppComponent }  from './app.component';
+import { WelcomeComponent } from "./home/welcome.component";
+import { RouterModule } from "@angular/router";
+import { ProductModule } from "./products/product.module";
+import { SharedModule } from "./shared/shared.module";
+
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpModule
+    SharedModule,
+    HttpModule,
+    ProductModule,
+    RouterModule.forRoot([
+      {path: 'welcome', component: WelcomeComponent},
+      {path: '', redirectTo: 'welcome', pathMatch: 'full'},
+      {path: '**', redirectTo: 'welcome', pathMatch: 'full'}
+    ])
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    WelcomeComponent,
+  ],
+  bootstrap: [ AppComponent ],
 })
 export class AppModule { }
